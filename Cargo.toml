@@ -1,7 +1,7 @@
 [package]
 authors = ["Jeff Muizelaar <jmuizelaar@mozilla.com>"]
 name = "type1-encoding-parser"
-version = "0.1.0"
+version = "0.1.1"
 license = "MIT"
 documentation = "https://docs.rs/crate/type1-encoding-parser/"
 description = "A library to parse encodings from Type1 font files"
