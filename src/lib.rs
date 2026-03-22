@@ -157,7 +157,7 @@ fn procedure() -> Parser<u8, Vec<Value>> {
 
 fn file() -> Parser<u8,Vec<Value>>
 {
-    ( comment().repeat(0..) * content_space() * value()).repeat(1..)
+    ((content_space() * comment()).repeat(0..) * content_space() * value()).repeat(1..)
 }
 
 pub fn parse(input: &[u8]) -> Result<Vec<Value>, pom::Error> {
@@ -220,24 +220,15 @@ mod tests {
     use std::io::Read;
 
     fn do_parse(input: &[u8]) {
-        let result = parse(input);
-        if let Ok(lines) = result  {
-            for l in lines {
-                println!("{:?}", l)
-            }
-        } else {
-            println!("{:?}", result)
-        }
+        let result = parse(input).unwrap();
     }
     #[test]
     fn it_works() {
-        let f = File::open("example").unwrap();
-        let mut f = BufReader::new(f);
-        let mut contents = Vec::new();
-        f.read_to_end(&mut contents);
+        let comments = b"%foo\n%foo\ntrue";
+        do_parse(comments);
 
-        //for line in f.lines() {
-        do_parse(&contents);
+        let comments_with_space_inbetween = b"%foo\n\n%foo\ntrue";
+        do_parse(comments_with_space_inbetween);
 
     }
 }

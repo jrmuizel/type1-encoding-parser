@@ -6,8 +6,7 @@ use std::path::Path;
 
 
 fn main() {
-
-    let f = File::open("example.pfa").unwrap();
+    let f = File::open(std::env::args().nth(1).unwrap()).unwrap();
     let mut f = BufReader::new(f);
     let mut contents = Vec::new();
     f.read_to_end(&mut contents);
